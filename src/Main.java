@@ -23,7 +23,12 @@ public class Main {
 
             while (true) {
                 System.out.println(message_receiver.readLine());
-                ps.println(input_receiver.readLine());
+                message = input_receiver.readLine();
+
+                if (message.equals("exit"))
+                    System.exit(1);
+
+                ps.println(message);
             }
         } catch (Exception e) {
             e.printStackTrace();
