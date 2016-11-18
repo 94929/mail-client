@@ -12,6 +12,10 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            /* Input format checking before opening a connection,
+                the input must be a form of mail_server and port_number */
+            if (args.length != 2) System.exit(1);
+
             /* Set up the connection to mail server from the command line */
             client = new Socket(args[0], Integer.parseInt(args[1]));
 
