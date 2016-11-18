@@ -10,28 +10,21 @@ import java.net.Socket;
 public class Main {
 
     public static void main(String[] args) {
+        Socket client = null;
         try {
-            Socket client = new Socket("mail.comtrue.com", 110);
-
-            BufferedReader sender
-                    = new BufferedReader(new InputStreamReader(System.in));
-            BufferedReader receiver
-                    = new BufferedReader(
-                            new InputStreamReader(client.getInputStream()));
+            client = new Socket("mail.comtrue.com", 110);
 
             while (true) {
-                System.out.println("input the data u want to send to echo server: ");
-                String s = sender.readLine();
 
-                if (s.equals("exit"))
-                    System.exit(1);
-
-                String st = receiver.readLine();
-                System.out.println("data returned by the server:   ");
-                System.out.println(st);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                client.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
