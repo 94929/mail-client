@@ -16,25 +16,14 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            System.out.print("Input \"MailServer\" and \"PortNumber\" in order to open a connection : ");
-            message = input_receiver.readLine();
-
-            client = new Socket(message.split(" ")[0], Integer.parseInt(message.split(" ")[1]));
+            client = new Socket(args[0], Integer.parseInt(args[1]));
 
             message_receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
             PrintStream ps = new PrintStream(client.getOutputStream());
 
             while (true) {
                 System.out.println(message_receiver.readLine());
-
-                message = input_receiver.readLine();
-
-                if (message.equals("exit"))
-                    System.exit(1);
-
-                ps.println(message);
-
-                message = message_receiver.readLine();
+                ps.println(input_receiver.readLine());
             }
         } catch (Exception e) {
             e.printStackTrace();
