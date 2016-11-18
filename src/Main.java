@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -8,14 +6,23 @@ import java.net.Socket;
  */
 
 public class Main {
+    private static Socket client;
 
     public static void main(String[] args) {
-        Socket client = null;
         try {
             client = new Socket("mail.comtrue.com", 110);
 
-            while (true) {
+            BufferedReader sender =
+                    new BufferedReader(new InputStreamReader(System.in));
 
+            BufferedReader receiver =
+                    new BufferedReader(
+                            new InputStreamReader(client.getInputStream()));
+
+            System.out.println("Message received from the server : "+ receiver.readLine());
+
+            while (true) {
+                break;
             }
         } catch (Exception e) {
             e.printStackTrace();
