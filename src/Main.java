@@ -7,22 +7,25 @@ import java.net.Socket;
 
 public class Main {
     private static Socket client;
+    private static BufferedReader receiver;
+
+    private static BufferedReader sender
+            = new BufferedReader(new InputStreamReader(System.in));
+
+    private static String message;
 
     public static void main(String[] args) {
         try {
-            client = new Socket("mail.comtrue.com", 110);
+            System.out.print("Input \"MailServer\" and \"PortNumber\" in order to open a connection : ");
+            message = sender.readLine();
 
-            BufferedReader sender =
-                    new BufferedReader(new InputStreamReader(System.in));
+            client = new Socket(message.split(" ")[0], Integer.parseInt(message.split(" ")[1]));
 
-            BufferedReader receiver =
-                    new BufferedReader(
-                            new InputStreamReader(client.getInputStream()));
-
+            receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
             System.out.println("Message received from the server : "+ receiver.readLine());
 
             while (true) {
-                break;
+                //
             }
         } catch (Exception e) {
             e.printStackTrace();
