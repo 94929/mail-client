@@ -12,10 +12,16 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            /* Set up the connection to mail server from the command line */
             client = new Socket(args[0], Integer.parseInt(args[1]));
 
-            BufferedReader receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            /* Initialize 'ps' that sends message to the server */
             PrintStream ps = new PrintStream(client.getOutputStream());
+
+            /* Initialize receiver that receives message from the server */
+            BufferedReader receiver
+                    = new BufferedReader(
+                            new InputStreamReader(client.getInputStream()));
 
             while (true) {
                 /* Printing the resulting response from the server */
