@@ -7,9 +7,9 @@ import java.net.Socket;
 
 public class Main {
     private static Socket client;
-    private static BufferedReader receiver;
+    private static BufferedReader message_receiver;
 
-    private static BufferedReader sender
+    private static final BufferedReader input_receiver
             = new BufferedReader(new InputStreamReader(System.in));
 
     private static String message;
@@ -17,22 +17,31 @@ public class Main {
     public static void main(String[] args) {
         try {
             System.out.print("Input \"MailServer\" and \"PortNumber\" in order to open a connection : ");
-            message = sender.readLine();
+            message = input_receiver.readLine();
 
             client = new Socket(message.split(" ")[0], Integer.parseInt(message.split(" ")[1]));
 
-            receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            System.out.println("Message received from the server : "+ receiver.readLine());
+            message_receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            PrintStream ps = new PrintStream(client.getOutputStream());
 
             while (true) {
-                //
+                System.out.println(message_receiver.readLine());
+
+                message = input_receiver.readLine();
+
+                if (message.equals("exit"))
+                    System.exit(1);
+
+                ps.println(message);
+
+                message = message_receiver.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 client.close();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
