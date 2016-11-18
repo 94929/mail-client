@@ -7,27 +7,28 @@ import java.net.Socket;
 
 public class Main {
     private static Socket client;
-    private static BufferedReader message_receiver;
-
-    private static final BufferedReader input_receiver
+    private static final BufferedReader br
             = new BufferedReader(new InputStreamReader(System.in));
-
-    private static String message;
 
     public static void main(String[] args) {
         try {
             client = new Socket(args[0], Integer.parseInt(args[1]));
 
-            message_receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            BufferedReader receiver = new BufferedReader(new InputStreamReader(client.getInputStream()));
             PrintStream ps = new PrintStream(client.getOutputStream());
 
             while (true) {
-                System.out.println(message_receiver.readLine());
-                message = input_receiver.readLine();
+                /* Printing the resulting response from the server */
+                System.out.println(receiver.readLine());
 
+                /* Get input message from the user */
+                String message = br.readLine();
+
+                /* If the user inputs "exit", then the program terminates */
                 if (message.equals("exit"))
                     System.exit(1);
 
+                /* If not exit, send the message to server */
                 ps.println(message);
             }
         } catch (Exception e) {
