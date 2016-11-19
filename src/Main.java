@@ -26,15 +26,20 @@ public class Main {
             /* Initialize receiver that receives message from the server */
             BufferedReader receiver
                     = new BufferedReader(
-                            new InputStreamReader(client.getInputStream()));
+                    new InputStreamReader(client.getInputStream()));
 
             while (true) {
                 /* Flushing buffer */
                 String svrMsg;
 
+                /* Waits for buffer */
+                while (!receiver.ready()) {}
+
                 /* Printing the resulting response from the server */
-                while ((svrMsg = receiver.readLine()) != null)
+                while (receiver.ready()) {
+                    svrMsg = receiver.readLine();
                     System.out.println(svrMsg);
+                }
 
                 /* Get input message from the user */
                 String usrMsg = br.readLine();
