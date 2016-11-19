@@ -29,17 +29,12 @@ public class Main {
                     new InputStreamReader(client.getInputStream()));
 
             while (true) {
-                /* Flushing buffer */
-                String svrMsg;
-
                 /* Waits for buffer */
                 while (!receiver.ready()) {}
 
                 /* Printing the resulting response from the server */
-                while (receiver.ready()) {
-                    svrMsg = receiver.readLine();
-                    System.out.println(svrMsg);
-                }
+                while (receiver.ready())
+                    System.out.println(receiver.readLine());
 
                 /* Get input message from the user */
                 String usrMsg = br.readLine();
