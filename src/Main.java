@@ -30,19 +30,20 @@ public class Main {
 
             while (true) {
                 /* Flushing buffer */
-                String message;
+                String svrMsg;
 
                 /* Printing the resulting response from the server */
-                System.out.println(receiver.readLine());
+                while ((svrMsg = receiver.readLine()) != null)
+                    System.out.println(svrMsg);
 
                 /* Get input message from the user */
-                message = br.readLine();
+                String usrMsg = br.readLine();
 
                 /* If the user inputs "exit", then the program terminates */
-                if (message.equals("exit")) System.exit(1);
+                if (usrMsg.equals("exit")) System.exit(1);
 
                 /* If not exit, send the message to server */
-                sender.println(message);
+                sender.println(usrMsg);
             }
         } catch (Exception e) {
             e.printStackTrace();
